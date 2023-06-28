@@ -5,7 +5,7 @@ FROM node:20.3.0-alpine
 WORKDIR /app
 
 # Instalar las dependencias del proyecto
-COPY package*.json /
+COPY package*.json /app
 RUN npm install
 
 # Instalar la CLI de Nest.js de forma global
