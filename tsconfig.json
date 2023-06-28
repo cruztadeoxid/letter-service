@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+   "baseUrl": "./",
+   "lib": [
+      "es5",
+      "es6"
+   ],
+   "outDir":"./dist",
+   "paths": {
+ "@auth/*": ["src/api/auth/*"],
+ "@users/*": ["src/api/users/*"],
+ "@common/*": ["src/api/common/*"],
+ "@pages/*": ["src/api/pages/*"],
+ "@landing/*": ["src/api/landing/*"],
+ "@landing-clone/*": ["src/api/landing-clone/*"],
+ "@promotion/*": ["src/api/promotion/*"],
+ "@banner/*": ["src/api/banner/*"],
+ "@image/*": ["src/api/image/*"],	
+ "@bookingWindow/*": ["src/api/booking-window/*"],
+ "@product/*": ["src/api/product/*"],
+ "@site/*": ["src/api/site/*"],
+ "@content/*": ["src/api/content/*"],
+ "@tours/*": ["src/api/tours/*"],
+ "@hotels/*":["src/api/hotels/*"],
+ "@metas/*":["src/api/metas/*"],
+ "@aquaNick/*":["src/api/aqua-nick/*"],
+ "@logger/*":["src/api/logger/*"]
+ },
+   "target": "es6",
+   "module": "commonjs",
+   "moduleResolution": "node",
+   "emitDecoratorMetadata": true,
+   "experimentalDecorators": true,
+   "sourceMap": true,
+},
+"ts-node": {
+ "files": true
+},
+}
