@@ -25,130 +25,132 @@ export class ConfirmationLetterService {
 	async getData(confirmationLetter: ConfirmationLetterRequest) {
 		const { venta_id } = confirmationLetter;
 
-		return await this.ventaRepository.manager.transaction(
-			async (repository: EntityManager) => {
-				this.entityManagerRepository = repository;
+		return venta_id;
 
-				const venta = await this.getVenta(venta_id);
+		// return await this.ventaRepository.manager.transaction(
+		// 	async (repository: EntityManager) => {
+		// 		this.entityManagerRepository = repository;
 
-				if (venta) {
-					const {
-						id,
-						sale_coin,
-						total_sale,
-						cliente,
-						venta_descripcion,
-						venta_pagos,
-						site_id
-					} = venta;
-					const {
-						city,
-						email,
-						id: id_client,
-						last_name,
-						postal_code,
-						name,
-						state
-					} = cliente;
-					const [venta_d] = venta_descripcion;
-					const [venta_p] = venta_pagos;
-					const {
-						id: id_venta_descripcion,
-						adults,
-						createdAt,
-						minors,
-						date1,
-						hotel1,
-						info_provider,
-						product,
-						product_id,
-						promotion_name,
-						tariff,
-						thumb,
-						total
-					} = venta_d;
+		// 		const venta = await this.getVenta(venta_id);
 
-					const {
-						amount,
-						auth_payment,
-						bank_affiliation,
-						id: id_venta_pago,
-						number_card,
-						pay_description
-					} = venta_p;
+		// 		if (venta) {
+		// 			const {
+		// 				id,
+		// 				sale_coin,
+		// 				total_sale,
+		// 				cliente,
+		// 				venta_descripcion,
+		// 				venta_pagos,
+		// 				site_id
+		// 			} = venta;
+		// 			const {
+		// 				city,
+		// 				email,
+		// 				id: id_client,
+		// 				last_name,
+		// 				postal_code,
+		// 				name,
+		// 				state
+		// 			} = cliente;
+		// 			const [venta_d] = venta_descripcion;
+		// 			const [venta_p] = venta_pagos;
+		// 			const {
+		// 				id: id_venta_descripcion,
+		// 				adults,
+		// 				createdAt,
+		// 				minors,
+		// 				date1,
+		// 				hotel1,
+		// 				info_provider,
+		// 				product,
+		// 				product_id,
+		// 				promotion_name,
+		// 				tariff,
+		// 				thumb,
+		// 				total
+		// 			} = venta_d;
 
-					const site = await this.siteService.findOne(site_id);
-					const lenguage = !site.url.includes('.mx') ? 1 : 2;
+		// 			const {
+		// 				amount,
+		// 				auth_payment,
+		// 				bank_affiliation,
+		// 				id: id_venta_pago,
+		// 				number_card,
+		// 				pay_description
+		// 			} = venta_p;
 
-					const [product_info] = await this.getProducInfo(+product_id, lenguage);
-					let state_name = null;
-					if (state) {
-						const [state_client] = await this.getStateInfo(state);
+		// 			const site = await this.siteService.findOne(site_id);
+		// 			const lenguage = !site.url.includes('.mx') ? 1 : 2;
 
-						state_name = state_client.e_estado_nombre_ing;
-					}
+		// 			const [product_info] = await this.getProducInfo(+product_id, lenguage);
+		// 			let state_name = null;
+		// 			if (state) {
+		// 				const [state_client] = await this.getStateInfo(state);
 
-					const date = new Date(createdAt);
-					const dateMonth =
-						(date.getMonth() + 1).toString().length < 2
-							? `0${date.getMonth() + 1}`
-							: `${date.getMonth() + 1}`;
-					const dateDay =
-						date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+		// 				state_name = state_client.e_estado_nombre_ing;
+		// 			}
 
-					const reservation_code = `${site.prefix}-${adults}${dateMonth}${id_venta_descripcion}${dateDay}`;
+		// 			const date = new Date(createdAt);
+		// 			const dateMonth =
+		// 				(date.getMonth() + 1).toString().length < 2
+		// 					? `0${date.getMonth() + 1}`
+		// 					: `${date.getMonth() + 1}`;
+		// 			const dateDay =
+		// 				date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
 
-					const response: ConfirmationLetterResponse = {
-						sale: {
-							id,
-							currency: sale_coin,
-							total_sale,
-							reservation_code
-						},
-						client: {
-							city,
-							email,
-							id: id_client,
-							last_name,
-							name,
-							postal_code,
-							state: state_name
-						},
-						admissions_description: {
-							exclusions: product_info.t_descripcion_exclusiones,
-							inclusions: product_info.t_descripcion_inclusiones,
-							politics: product_info.t_descripcion_politicas,
-							regulations: product_info.t_descripcion_regulaciones
-						},
-						admissions: {
-							adults,
-							date1,
-							hotel1,
-							id: id_venta_descripcion,
-							provider: info_provider,
-							minors,
-							product,
-							product_id,
-							promotion_code: promotion_name,
-							service: tariff,
-							thumb,
-							total
-						},
-						payment: {
-							amount,
-							auth_payment,
-							bank_affiliation,
-							id: id_venta_pago,
-							number_card
-						}
-					};
+		// 			const reservation_code = `${site.prefix}-${adults}${dateMonth}${id_venta_descripcion}${dateDay}`;
 
-					return response;
-				} else {
-					throw new RpcException(`There is no record with the id:${venta_id}`);
-				}
-			}
-		);
+		// 			const response: ConfirmationLetterResponse = {
+		// 				sale: {
+		// 					id,
+		// 					currency: sale_coin,
+		// 					total_sale,
+		// 					reservation_code
+		// 				},
+		// 				client: {
+		// 					city,
+		// 					email,
+		// 					id: id_client,
+		// 					last_name,
+		// 					name,
+		// 					postal_code,
+		// 					state: state_name
+		// 				},
+		// 				admissions_description: {
+		// 					exclusions: product_info.t_descripcion_exclusiones,
+		// 					inclusions: product_info.t_descripcion_inclusiones,
+		// 					politics: product_info.t_descripcion_politicas,
+		// 					regulations: product_info.t_descripcion_regulaciones
+		// 				},
+		// 				admissions: {
+		// 					adults,
+		// 					date1,
+		// 					hotel1,
+		// 					id: id_venta_descripcion,
+		// 					provider: info_provider,
+		// 					minors,
+		// 					product,
+		// 					product_id,
+		// 					promotion_code: promotion_name,
+		// 					service: tariff,
+		// 					thumb,
+		// 					total
+		// 				},
+		// 				payment: {
+		// 					amount,
+		// 					auth_payment,
+		// 					bank_affiliation,
+		// 					id: id_venta_pago,
+		// 					number_card
+		// 				}
+		// 			};
+
+		// 			return response;
+		// 		} else {
+		// 			throw new RpcException(`There is no record with the id:${venta_id}`);
+		// 		}
+		// 	}
+		// );
 	}
 
 	private async getProducInfo(_idProduct: number, lenguage: number) {
