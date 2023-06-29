@@ -9,7 +9,8 @@ phases:
       - aws configure set aws_region_name us-east-2
   build:
     commands: 
-      - docker build -t letter-service .
+      - docker pull 578419007585.dkr.ecr.us-east-2.amazonaws.com/letter-service:latest || true
+      - docker build --cache-from 578419007585.dkr.ecr.us-east-2.amazonaws.com/letter-service:latest -t letter-service .
       - docker tag letter-service:latest 578419007585.dkr.ecr.us-east-2.amazonaws.com/letter-service:latest
   post_build:
     commands:
