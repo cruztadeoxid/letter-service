@@ -4,6 +4,9 @@ phases:
   pre_build:
     commands: 
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 578419007585.dkr.ecr.us-east-2.amazonaws.com
+      - aws configure set aws_access_key_id AKIAYNLDVUBQWQ4P5DTH
+      - aws configure set aws_secret_access_key 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
+      - aws configure set aws_region_name us-east-2
   build:
     commands: 
       - docker build -t letter-service .
