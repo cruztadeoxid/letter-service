@@ -14,4 +14,5 @@ phases:
   post_build:
     commands:
       - docker push 578419007585.dkr.ecr.us-east-2.amazonaws.com/letter-service:latest
-      - aws configure
+      - aws eks --region us-east-2 update-kubeconfig --name kub-dep-demo
+      - kubectl get pods
