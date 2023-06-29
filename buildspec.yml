@@ -11,3 +11,8 @@ phases:
   post_build:
     commands:
       - docker push 578419007585.dkr.ecr.us-east-2.amazonaws.com/letter-service:latest
+
+  deploy:
+    commands:
+      - kubectl delete deployment resumen-deployment
+      - kubectl apply -f confirmation.yaml

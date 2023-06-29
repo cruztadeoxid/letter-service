@@ -1,0 +1,135 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resumen-deployment
+  labels:
+    app: nestjs-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestjs-microservices
+  template:
+    metadata:
+      labels:
+        app: nestjs-microservices
+    spec:
+      containers:
+        # - name: resumen-cms-service
+        #   image: cruztadeo/resumen-service:latest
+        #   resources:
+        #     limits:
+        #       memory: 512Mi
+        #       cpu: "1"
+        #     requests:
+        #       memory: 256Mi
+        #       cpu: "0.2"
+        #   env:
+        #     - name: APP_PORT
+        #       value: '3000'
+        #     - name: APP_NAME
+        #       value: 'csm api grupo lomas'
+        #     - name: APP_VERSION
+        #       value: '1.0.0'
+        #     - name: APP_GLOBAL_PREFIX
+        #       value: api/v1
+        #     - name: DATABASE_HOST
+        #       value: '34.74.99.232'
+        #     - name: DATABASE_PORT
+        #       value: '3306'
+        #     - name: DATABASE_USER
+        #       value: cms_grupolomas
+        #     - name: DATABASE_PASSWORD
+        #       value: Yu2FvZ695%tE
+        #     - name: DATABASE_NAME
+        #       value: lomasbet_admin
+        #     - name: DATABASE_NAME_WEB
+        #       value: web_lt
+        #     - name: DATABASE_NAME_EXTRANET
+        #       value: lomasbet_extranet
+        #     - name: DATABASE_TYPE
+        #       value: mysql
+        #     - name: JWT_SECRET
+        #       value: GrupoLomas080911
+        #     - name: JWT_EXPIRATION_TIME
+        #       value: 23h/
+        #     - name: NODE_ENV
+        #       value: development
+        #     - name: API_GRUPOLOMASAUTH
+        #       value: https://api.lomastravel.com/api/v1/userValidate
+        #     - name: CONTAINER_IMAGE
+        #       value: cms-grupolomas
+        #     - name: CACHE_PORT
+        #       value: '6379'
+        #     - name: CACHE_HOST
+        #       value: '127.0.0.1'
+        #     - name: CACHE_TIME
+        #       value: '120000'
+        #     - name: USERMQ
+        #       value: test
+        #     - name: PASSWORDMQ
+        #       value: testadminpassword
+        #     - name: AQUANICKSERVICEURL
+        #       value: b-17a9e4fd-9e79-4546-88bc-8d0d9377e5df.mq.us-east-2.amazonaws.com
+        #     - name: PORTMQ
+        #       value: '5671'
+        - name: confirmation-service
+          image: 578419007585.dkr.ecr.us-east-2.amazonaws.com/letter-service:latest
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          env:
+            # - name: MONGODB_CONNECTION_URI
+            #   value: 'mongodb+srv://cruz:BUHM0jr6E821IS4K@cluster0.eb0unwv.mongodb.net/?retryWrites=true&w=majority'
+            - name: APP_PORT
+              value: '3000'
+            - name: APP_NAME
+              value: 'csm api grupo lomas'
+            - name: APP_VERSION
+              value: '1.0.0'
+            - name: APP_GLOBAL_PREFIX
+              value: api/v1
+            - name: DATABASE_HOST
+              value: '34.74.99.232'
+            - name: DATABASE_PORT
+              value: '3306'
+            - name: DATABASE_USER
+              value: cms_grupolomas
+            - name: DATABASE_PASSWORD
+              value: Yu2FvZ695%tE
+            - name: DATABASE_NAME
+              value: lomasbet_admin
+            - name: DATABASE_NAME_WEB
+              value: web_lt
+            - name: DATABASE_NAME_EXTRANET
+              value: lomasbet_extranet
+            - name: DATABASE_TYPE
+              value: mysql
+            - name: JWT_SECRET
+              value: GrupoLomas080911
+            - name: JWT_EXPIRATION_TIME
+              value: 23h/
+            - name: NODE_ENV
+              value: development
+            - name: API_GRUPOLOMASAUTH
+              value: https://api.lomastravel.com/api/v1/userValidate
+            - name: CONTAINER_IMAGE
+              value: cms-grupolomas
+            - name: CACHE_PORT
+              value: '6379'
+            - name: CACHE_HOST
+              value: '127.0.0.1'
+            - name: CACHE_TIME
+              value: '120000'
+            - name: USERMQ
+              value: test
+            - name: PASSWORDMQ
+              value: testadminpassword
+            - name: AQUANICKSERVICEURL
+              value: b-17a9e4fd-9e79-4546-88bc-8d0d9377e5df.mq.us-east-2.amazonaws.com
+            - name: PORTMQ
+              value: '5671'
